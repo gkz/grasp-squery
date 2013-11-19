@@ -1,4 +1,4 @@
-# grasp squery
+# grasp squery [![Build Status](https://travis-ci.org/gkz/grasp-squery.png?branch=master)](https://travis-ci.org/gkz/grasp-squery)
 A query engine for [grasp](http://graspjs.com) - use CSS style selectors to query your JavaScript AST.
 
 For documentation on the selector format, see [the grasp page on squery](http://graspjs.com/docs/squery).
