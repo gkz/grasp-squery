@@ -162,6 +162,7 @@ function match-ast ast, selector, cache
             loc:
               start: previous-node.left.loc?.end
               end: previous-node.right.loc?.start
+            raw: node
         if node.type?
           if subjects[i]
             subs.push node

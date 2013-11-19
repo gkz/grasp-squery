@@ -51,6 +51,7 @@ suite '.prop' ->
     op =
       type: 'Operator'
       value: '+'
+      raw: '+'
       loc:
         start:
           line: 5
