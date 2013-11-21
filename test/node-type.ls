@@ -53,6 +53,46 @@ suite 'node type' ->
         kind: 'init'
       eq [prop1, prop2], <[ Property prop ]>, '({a: 1, b: 2})'
 
+    test 'prop loc' ->
+      prop =
+        type: 'Property'
+        key:
+          type: 'Identifier'
+          name: 'a'
+          start: 2
+          end: 3
+          loc:
+            start:
+              line: 1
+              column: 2
+            end:
+              line: 1
+              column: 3
+        value:
+          type: 'Literal'
+          value: 1
+          raw: '1'
+          start: 5
+          end: 6
+          loc:
+            start:
+              line: 1
+              column: 5
+            end:
+              line: 1
+              column: 6
+        kind: 'init'
+        start: 2
+        end: 6
+        loc:
+          start:
+            line: 1
+            column: 2
+          end:
+            line: 1
+            column: 7
+      eq prop, 'prop', '({a: 1})', false, false, true
+
   suite 'statements' ->
     test 'empty-statement' ->
       eq ';', <[ EmptyStatement empty ]>, code
