@@ -152,6 +152,8 @@ function match-ast ast, selector, cache
             node = node[*-prop.index.value-1]
           | 'slice'
             node = node.slice.apply node, (map (.value), prop.indicies)
+          | 'reverse'
+            node.reverse!
         else
           break
         break unless node?

@@ -99,5 +99,8 @@ suite '.prop' ->
       eq 'throw Error', 'func-exp.body.body:slice(1,2)', code
       eq [], 'func-exp:slice(1,2)', code
 
+    test 'reverse' ->
+      eq [ret, 'throw Error', 'l: 123'], 'func-exp.body.body:reverse', code
+
     test 'multiple' ->
       eq ['throw Error'], 'func-exp.body.body:tail:first', code
