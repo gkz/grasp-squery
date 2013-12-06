@@ -188,14 +188,6 @@ function match-ast ast, selector, cache
           for sub in subs
             subject.push [sub]
 
-  | 'field' =>
-    regex = //#{ selector.name.replace '.' '\\.' }$//
-    visit-pre ast, (node, path) !->
-      if regex.test path
-        matches.push node
-        if is-subject
-          subject.push [node]
-
   | 'matches' =>
     for matches-selector in selector.selectors
       for node in final-matches match-ast ast, matches-selector, cache

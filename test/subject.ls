@@ -45,9 +45,6 @@ suite 'subject' ->
   test 'attribute regex' ->
     eq code, '[&id.name=~/f/]! if', code
 
-  test 'field' ->
-    eq '2 === x', '@test! 2', code
-
   test 'matches' ->
     eq fi, ':matches(if, program, func, bi)! >biop[&op="==="]', code
 

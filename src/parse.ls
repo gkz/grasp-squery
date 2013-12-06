@@ -10,7 +10,7 @@ token-split = //
   | ("(?:\\"|[^"])*")               # string
   | ('(?:\\'|[^'])*')               # string
   | (type\([a-zA-Z]*\))             # type
-  | (\*|::?|\+\+|#|@)               # op
+  | (\*|::?|\+\+|#)                 # op
   | \s*(!=|<=|>=|=~|~=)\s*          # s_dop_s
   | \s*(\]|\)|!|\.)                 # s_op
   | (\[&|\[)\s*                     # op_s
@@ -45,7 +45,7 @@ function tokenize selector
     else if /^\/(.*)\/([gimy]*)$/.exec token
       type: 'regexp'
       value: new RegExp that.1, that.2
-    else if token in <[ != <= >= =~ ~= > < , ~ = ! # . @ : :: + [& [ ] ( ) ]> or token.match /\s/
+    else if token in <[ != <= >= =~ ~= > < , ~ = ! # . : :: + [& [ ] ( ) ]> or token.match /\s/
       type: 'operator'
       value: token
     else
@@ -230,8 +230,6 @@ function consume-selector tokens
     consume-pseudo tokens
   else if peek-op tokens, /\[&?/
     consume-attribute tokens
-  else if peek-op tokens, '@'
-    consume-field tokens
   else if peek-op tokens, '#'
     consume-op tokens, '#'
     token = tokens.shift!
@@ -376,13 +374,6 @@ function consume-prop tokens
     value: attr-map[name] or name
   else
     type: 'wildcard'
-
-function consume-field tokens
-  consume-op tokens, '@'
-  name = consume-name tokens, <[ keyword identifier ]>
-
-  type: 'field'
-  name: attr-map[name] or name
 
 function consume-complex-arg-list tokens
   consume-op tokens, '('

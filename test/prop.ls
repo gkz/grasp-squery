@@ -47,6 +47,24 @@ suite '.prop' ->
   test 'wildcard default with array' ->
     eq ['a', 'b', 'c', 'd'], 'arr.elements.', '[a && b, c || d]'
 
+  suite 'wildcard subject' ->
+    code = '
+      if (x && 2) {
+        z = function (y) { return x + y; };
+      }
+    '
+    test 'left' ->
+      eq <[ x z x ]>, '*.left', code
+
+    test 'right' ->
+      eq ['2', '(function (y){ return x + y; })', 'y'], '*.right', code
+
+    test 'test' ->
+      eq 'x && 2', '*.test', code
+
+    test 'deep' ->
+      eq '2', '*.test.right', code
+
   test 'access operator' ->
     op =
       type: 'Operator'

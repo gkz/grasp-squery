@@ -13,7 +13,7 @@ suite 'matches' ->
     eq <[ x moo x 9 10 23 ]>, ':matches(ident, literal)', code
 
   test 'complicated' ->
-    eq ['moo.x(23)', 'x - 9 === 10'], ':matches(call, @test)', code
+    eq ['moo.x(23)', 'x - 9 === 10'], ':matches(call, if.test)', code
 
   test 'one with children' ->
     eq <[ 9 10 9 ]>, ':matches(bi) literal', code
