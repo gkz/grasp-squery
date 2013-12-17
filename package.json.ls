@@ -1,8 +1,8 @@
 name: 'grasp-squery'
-version: '0.1.0'
+version: '0.2.0'
 
 author: 'George Zahariev <z@georgezahariev.com>'
-description: 'grasp query backend using css style selectors'
+description: 'Grasp query backend using css style selectors'
 homepage: 'http://graspjs.com/docs/squery'
 keywords:
   'grasp'
@@ -41,4 +41,4 @@ dev-dependencies:
   LiveScript: '~1.2.0'
   mocha: '~1.8.2'
   istanbul: '~0.1.43'
-  acorn: '~0.3.1'
+  acorn: '~0.4.2'
