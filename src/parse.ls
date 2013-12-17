@@ -26,7 +26,7 @@ function tokenize selector
     else if /^type\(([a-zA-Z]*)\)$/.exec token
       type: 'type'
       value: that.1
-    else if token in <[ type root not matches first head tail last initial nth nth-last slice reverse
+    else if token in <[ type root not matches first head tail last initial nth nth-last slice
                         first-child nth-child nth-last-child last-child ]>
       type: 'keyword'
       value: token
@@ -259,7 +259,7 @@ function consume-selector tokens
     props = []
     prop-subject-indices = {}
     i = 0
-    while peek-op tokens, '.' or peek-op tokens, ':' and tokens.1.value in <[ first head tail last initial nth nth-last slice reverse ]>
+    while peek-op tokens, '.' or peek-op tokens, ':' and tokens.1.value in <[ first head tail last initial nth nth-last slice ]>
       props.push if peek-op tokens, '.' then consume-prop tokens else consume-pseudo tokens
       if peek-op tokens, '!'
         consume-op tokens, '!'
@@ -295,7 +295,7 @@ function consume-pseudo tokens
   id = consume-type tokens, 'keyword'
 
   switch id.value
-  | <[ root first head tail last initial reverse ]> =>
+  | <[ root first head tail last initial ]> =>
     type: that
   | <[ nth nth-last nth-child nth-last-child ]> =>
     type: that
