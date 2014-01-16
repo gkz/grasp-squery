@@ -167,3 +167,21 @@ suite 'attribute complicated' ->
 
     eq var-dec, 'dec[init=obj 2]', code
     eq [], 'dec[init!=obj prop]', code
+
+  test 'anon function expression' ->
+    code = '''
+      function f(xx) {
+        xs.map(function (y) { return y + 1; });
+      }
+      '''
+    eq code, 'func[id=#f]', code
+    eq '(function (y) { return y + 1; })', 'func[id=type(null)]', code
+
+  test 'null check' ->
+    no-else = 'if (test) { 1; }'
+    with-else = 'if (test2) { 2; } else { 3; }'
+    code = "#no-else\n#with-else"
+
+    eq [no-else, with-else], 'if', code
+    eq with-else, 'if[else]', code
+    eq no-else, 'if[else=type(null)]', code

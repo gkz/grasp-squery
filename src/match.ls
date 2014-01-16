@@ -317,7 +317,7 @@ function add-subject-to-first sel
     sel.subject = true
 
 function is-match-complex node-value, op, value, selector
-  return false if 'Undefined' is typeof! node-value
+  return false unless node-value?
   cache = new Cache node-value
 
   add-subject-to-first selector
