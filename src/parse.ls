@@ -119,6 +119,8 @@ function consume-complex-selector tokens
 
 function consume-compound-selector tokens
   result = consume-selector tokens
+  if consume-props tokens
+    result = that <<< {left: result}
 
   while tokens.length > 0
     selector = consume-selector tokens
@@ -130,6 +132,9 @@ function consume-compound-selector tokens
           selectors: [result]
 
       result.selectors.push selector
+
+      if consume-props tokens
+        result = that <<< {left: result}
     else
       break
 
@@ -256,23 +261,22 @@ function consume-selector tokens
       tokens.shift!
       selector.subject = true
 
-    props = []
-    prop-subject-indices = {}
-    i = 0
-    while peek-op tokens, '.' or peek-op tokens, ':' and tokens.1.value in <[ first head tail last initial nth nth-last slice ]>
-      props.push if peek-op tokens, '.' then consume-prop tokens else consume-pseudo tokens
-      if peek-op tokens, '!'
-        consume-op tokens, '!'
-        prop-subject-indices[i] = true
-      i++
-    if props.length
-      selector =
-        type: 'prop'
-        left: selector
-        props: props
-        subjects: prop-subject-indices
-
   selector
+
+function consume-props tokens
+  props = []
+  prop-subject-indices = {}
+  i = 0
+  while peek-op tokens, '.' or peek-op tokens, ':' and tokens.1.value in <[ first head tail last initial nth nth-last slice ]>
+    props.push if peek-op tokens, '.' then consume-prop tokens else consume-pseudo tokens
+    if peek-op tokens, '!'
+      consume-op tokens, '!'
+      prop-subject-indices[i] = true
+    i++
+  if props.length
+    type: 'prop'
+    props: props
+    subjects: prop-subject-indices
 
 function consume-literal tokens
   token = tokens.shift!

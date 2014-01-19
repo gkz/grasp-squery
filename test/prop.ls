@@ -22,6 +22,12 @@ suite '.prop' ->
   test 'if deep' ->
     eq 'x', 'if.test.left', code
 
+  test 'access on compound' ->
+    eq 'x', 'prop[key=#x].key', 'var obj = {a: 3, x: 2};'
+
+  test 'attr on prop' ->
+    eq 'g(2)', 'var-dec.init[callee=#g]', 'var x = f(1), y = g(2);'
+
   test 'bi' ->
     eq 'y', 'bi.right', code
 

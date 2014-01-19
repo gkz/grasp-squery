@@ -29,6 +29,7 @@ suite 'attribute simple' ->
 
   test 'deep' ->
     eq ['1 == xoom', '1 + 2'], '[&left.value=1]', code
+    eq ['1 == xoom'], 'if.test[left.value=1]', code
 
   test 'regexp' ->
     eq '1 == xoom', ['[&right.name=~/^x/]', '[&right.name~=/^x/]'], code
