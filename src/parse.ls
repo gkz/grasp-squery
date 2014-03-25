@@ -6,10 +6,11 @@ function parse selector
 
 token-split = //
     \s*(/(?:\\/|[^/])*/[gimy]*)\s*  # reg-exp
+  | (type\([a-zA-Z]*\))             # type
+  | ([-a-zA-Z$_][-a-zA-Z$_0-9]*)    # ident
   | ([-+]?[0-9]*\.?[0-9]+)          # number
   | ("(?:\\"|[^"])*")               # string
   | ('(?:\\'|[^'])*')               # string
-  | (type\([a-zA-Z]*\))             # type
   | (\*|::?|\+\+|#)                 # op
   | \s*(!=|<=|>=|=~|~=)\s*          # s_dop_s
   | \s*(\]|\)|!|\.)                 # s_op
@@ -39,7 +40,7 @@ function tokenize selector
     else if /^['"](.*)['"]$/.exec token
       type: 'string'
       value: that.1.replace /\\"/, '"' .replace /\\'/ "'"
-    else if /^[-+]?[0-9]*.?[0-9]+$/.test token
+    else if /^[-+]?[0-9]*\.?[0-9]+$/.test token
       type: 'number'
       value: parse-float token
     else if /^\/(.*)\/([gimy]*)$/.exec token
