@@ -34,7 +34,7 @@ scripts:
   test: 'make test'
 
 dependencies:
-  'prelude-ls': '~1.0.3'
+  'prelude-ls': '~1.1.0'
   'grasp-syntax-javascript': '~0.1.0'
 
 dev-dependencies:
