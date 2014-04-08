@@ -89,7 +89,7 @@ function match-ast ast, selector, cache
         sel = sel-val.sel
         visit-pre ast, (node) !->
           node-value = get-path node, name
-          if 'object' is typeof node-value and is-match-complex node-value, op, value, sel
+          if 'object' is typeof node-value and (not) node-value instanceof RegExp and is-match-complex node-value, op, value, sel
           or is-match-primitive-literal node-value, op, value, value-type
             matches.push node
             if is-subject
