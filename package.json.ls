@@ -1,5 +1,5 @@
 name: 'grasp-squery'
-version: '0.2.1'
+version: '0.2.2'
 
 author: 'George Zahariev <z@georgezahariev.com>'
 description: 'Grasp query backend using css style selectors'
