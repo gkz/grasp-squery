@@ -154,6 +154,8 @@ suite 'attribute complicated' ->
 
   test 'either - value' ->
     eq [prop, 'false'], '[value=false]', code
+    eq '/hi/g', 'literal[val=/hi/g]', 'var x = /hi/g;'
+    eq 'null', 'literal[val=null]', 'var x = null;'
 
   test 'complex' ->
     eq prop, 'prop[key=#c]', code
