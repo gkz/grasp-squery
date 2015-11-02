@@ -1,4 +1,4 @@
-{eq, p} = require './_utils'
+{eq, p, make-prop} = require './_utils'
 
 suite 'attribute simple' ->
   code = 'if (1 == xoom) { 1 + 2; }'
@@ -142,11 +142,7 @@ suite 'attribute complicated' ->
     };
   '
 
-  prop =
-    type: 'Property'
-    key: p 'c'
-    value: p 'false'
-    kind: 'init'
+  prop = make-prop 'c', 'false'
   ret = type: 'ReturnStatement', argument: p 'x * x'
 
   test 'primitive' ->

@@ -4,7 +4,7 @@ suite 'pseudo' ->
   code = '
     function f(x) {
       debugger;
-      with (obj) {
+      while (obj) {
         try {
           x = 10;
           x, y, z;

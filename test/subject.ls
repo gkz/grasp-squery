@@ -1,4 +1,4 @@
-{eq, p} = require './_utils'
+{eq, p, make-prop} = require './_utils'
 
 suite 'subject' ->
   code = '
@@ -63,11 +63,7 @@ suite 'subject' ->
     eq '2 === x', '[right=ident]! 2', code
 
   test 'either attr' ->
-    prop =
-      type: 'Property'
-      key: p 'k'
-      value: p '2'
-      kind: 'init'
+    prop = make-prop 'k', '2'
     eq prop, '[value=2]! 2', '({k: 2})'
 
   test 'descendant' ->

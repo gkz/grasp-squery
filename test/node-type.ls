@@ -1,4 +1,4 @@
-{eq, p} = require './_utils'
+{eq, p, make-prop} = require './_utils'
 
 suite 'node type' ->
   code = '''
@@ -7,9 +7,7 @@ suite 'node type' ->
       if (true) {
         var z = 9, y = 10;
         la: 999;
-        with (Math) {
-          pow(z, y);
-        }
+        pow(z, y);
       } else {
         while (+2, 6 === 4) {
           switch (moo()) {
@@ -41,16 +39,8 @@ suite 'node type' ->
       eq code, <[ Program program ]>, code, false, false
 
     test 'prop' ->
-      prop1 =
-        type: 'Property'
-        key: p 'a'
-        value: p '1'
-        kind: 'init'
-      prop2 =
-        type: 'Property'
-        key: p 'b'
-        value: p '2'
-        kind: 'init'
+      prop1 = make-prop 'a', '1'
+      prop2 = make-prop 'b', '2'
       eq [prop1, prop2], <[ Property prop ]>, '({a: 1, b: 2})'
 
     test 'prop loc' ->
@@ -82,6 +72,9 @@ suite 'node type' ->
               line: 1
               column: 6
         kind: 'init'
+        method: false
+        shorthand: false
+        computed: false
         start: 2
         end: 6
         loc:
@@ -114,9 +107,6 @@ suite 'node type' ->
 
     test 'continue' ->
       eq {type: 'ContinueStatement', label: null}, <[ ContinueStatement continue ]>, code
-
-    test 'with' ->
-      eq 'with (Math) { pow(z,y); }', <[ WithStatement with ]>, code
 
     test 'switch' ->
       eq 'switch (x) { case 1: foo(); }', <[ SwitchStatement ]>, 'switch (x) { case 1: foo(); }'
@@ -155,11 +145,17 @@ suite 'node type' ->
         if (true) {
           debugger;
         }
-        with (obj) {
-          throw e
+        while (obj) {
+          throw e;
         }
       '
-      cases = ['{debugger;}', '{throw e;}', 'if(true){ debugger; }', 'with(obj){throw e;}', 'throw e', 'debugger']
+      cases =
+          '{debugger;}'
+          '{throw e;}'
+          'if(true){ debugger; }'
+          'throw e'
+          'while(obj){throw e;}'
+          'debugger'
       eq cases, 'statement', code
 
   suite 'declarations' ->
@@ -230,7 +226,7 @@ suite 'node type' ->
       eq 'x.y', 'member', 'z = x.y'
 
     test 'ident' ->
-      eq <[ f z y la Math pow z y moo x y String x x y ]>, <[ Identifier ident ]>, code
+      eq <[ f z y la pow z y moo x y String x x y ]>, <[ Identifier ident ]>, code
 
     test 'literal' ->
       eq <[ true 9 10 999 2 6 4 23 ]>, <[ Literal literal ]>, code
