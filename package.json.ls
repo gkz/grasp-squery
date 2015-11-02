@@ -1,5 +1,5 @@
 name: 'grasp-squery'
-version: '0.2.2'
+version: '0.3.0'
 
 author: 'George Zahariev <z@georgezahariev.com>'
 description: 'Grasp query backend using css style selectors'
@@ -32,7 +32,7 @@ scripts:
 
 dependencies:
   'prelude-ls': '~1.1.2'
-  'grasp-syntax-javascript': '~0.1.0'
+  'grasp-syntax-javascript': '~0.2.0'
 
 dev-dependencies:
   livescript: '~1.4.0'
