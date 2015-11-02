@@ -21,10 +21,7 @@ files:
 main: './lib/'
 
 bugs: 'https://github.com/gkz/grasp-squery/issues'
-licenses:
-  * type: 'BSD'
-    url: 'https://raw.github.com/gkz/grasp-squery/master/LICENSE'
-  ...
+license: 'BSD-3-Clause'
 engines:
   node: '>= 0.8.0'
 repository:
@@ -34,11 +31,11 @@ scripts:
   test: 'make test'
 
 dependencies:
-  'prelude-ls': '~1.1.0'
+  'prelude-ls': '~1.1.2'
   'grasp-syntax-javascript': '~0.1.0'
 
 dev-dependencies:
-  LiveScript: '~1.2.0'
-  mocha: '~1.8.2'
+  livescript: '~1.4.0'
+  mocha: '~2.1.0'
   istanbul: '~0.1.43'
-  acorn: '~0.4.2'
+  acorn: '~2.5.0'
