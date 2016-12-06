@@ -22,6 +22,10 @@
 
 !function visit-pre ast, fn, path
   fn ast, path
+
+  if not syntax-flat[ast.type]?
+    return
+
   {nodes, node-arrays} = syntax-flat[ast.type]
 
   if nodes
@@ -39,6 +43,9 @@
         visit-pre node, fn, new-path
 
 !function visit-children ast, fn
+  if not syntax-flat[ast.type]?
+    return
+
   {nodes, node-arrays} = syntax-flat[ast.type]
 
   if nodes
