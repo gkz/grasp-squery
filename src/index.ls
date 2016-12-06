@@ -1,4 +1,4 @@
-VERSION = '0.3.0'
+VERSION = '0.3.1'
 
 {Cache} = require './common'
 {parse} = require './parse'
