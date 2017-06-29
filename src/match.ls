@@ -124,12 +124,14 @@ function match-ast ast, selector, cache
             new-node = []
             for p in node
               node-info = syntax-flat[p.type]
-              for field in node-info.nodes ++ node-info.node-arrays when p[field]?
-                new-node.push p[field]
+              if node-info?
+                for field in node-info.nodes ++ node-info.node-arrays when p[field]?
+                  new-node.push p[field]
             node = new-node
           else
             node-info = syntax-flat[node.type]
-            node = [node[field] for field in node-info.nodes ++ node-info.node-arrays when node[field]?]
+            if node-info?
+              node = [node[field] for field in node-info.nodes ++ node-info.node-arrays when node[field]?]
         else if prop.type is 'string'
           prop-value = prop.value
           if typeof! node is 'Array'

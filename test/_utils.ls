@@ -1,9 +1,10 @@
 {query} = require '..'
-require! [acorn, assert]
+parser = require 'flow-parser'
+require! assert
 {map, all, is-type} = require 'prelude-ls'
 
 p = (input, {unwrap-exp-state=true, unwrap-program=true} = {}) ->
-  res = acorn.parse input, {ecma-version: 6, source-type: 'module'}
+  res = parser.parse input, {source-type: 'module'}
   res2 = if unwrap-program then res.body.0 else res
   res3 = if unwrap-exp-state and res2.type is 'ExpressionStatement' then res2.expression else res2
   if res3.type is 'ObjectExpression'
@@ -17,12 +18,14 @@ extract = (options, input) -->
   else
     res = p input, options
 
-q = (selector, code, locations = false) ->
-  query selector, (acorn.parse code, {locations, ecma-version: 6, source-type: 'module'})
+q = (selector, code, loc = false) ->
+  query selector, (parser.parse code, {loc, range: loc, source-type: 'module'})
+
+normalize-typeof = (input) -> if input is 'Null' then 'Undefined' else input
 
 deep-equal = (actual, expected) ->
-  type-actual = typeof! actual
-  type-expected = typeof! expected
+  type-actual = normalize-typeof typeof! actual
+  type-expected = normalize-typeof typeof! expected
   assert.strict-equal type-actual, type-expected, "typeof actual and expected do not match: #type-actual, #type-expected"
   switch type-actual
   | 'Array'   =>
@@ -30,7 +33,7 @@ deep-equal = (actual, expected) ->
     for x, i in actual
       deep-equal x, expected[i]
   | 'Object'  =>
-    for key, val of actual when key not in <[ start end ]>
+    for key, val of actual when key not in <[ range loc ]>
       deep-equal val, expected[key]
   | otherwise => assert.deep-equal actual, expected, "primitive value not equal: #actual, #expected"
 

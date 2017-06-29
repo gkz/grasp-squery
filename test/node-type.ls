@@ -49,8 +49,7 @@ suite 'node type' ->
         key:
           type: 'Identifier'
           name: 'a'
-          start: 2
-          end: 3
+          optional: false
           loc:
             start:
               line: 1
@@ -62,8 +61,6 @@ suite 'node type' ->
           type: 'Literal'
           value: 1
           raw: '1'
-          start: 5
-          end: 6
           loc:
             start:
               line: 1
@@ -75,8 +72,6 @@ suite 'node type' ->
         method: false
         shorthand: false
         computed: false
-        start: 2
-        end: 6
         loc:
           start:
             line: 1

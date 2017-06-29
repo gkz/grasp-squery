@@ -40,6 +40,6 @@
     "livescript": "~1.4.0",
     "mocha": "~2.1.0",
     "istanbul": "~0.1.43",
-    "acorn": "~2.5.0"
+    "flow-parser": "^0.*"
   }
 }
