@@ -6,14 +6,15 @@
   visit-pre ast, ({type}:node) !->
     if type is 'ObjectExpression'
       for property in node.properties
-        property <<<
-          type: 'Property'
-          start: property.key.start
-          end: property.value.end
-        if property.key.loc
-          property.loc =
-            start: property.key.loc.start
-            end: property.value.loc.end
+        if property.key
+          property <<<
+            type: 'Property'
+            start: property.key.start
+            end: property.value.end
+          if property.key.loc
+            property.loc =
+              start: property.key.loc.start
+              end: property.value.loc.end
     nodes.push node
     types[type] ?= []
     types[type].push node
