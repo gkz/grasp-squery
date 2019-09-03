@@ -21,6 +21,9 @@
   @types = types
 
 !function visit-pre ast, fn, path
+  if not ast
+    return
+
   fn ast, path
 
   if not syntax-flat[ast.type]?
